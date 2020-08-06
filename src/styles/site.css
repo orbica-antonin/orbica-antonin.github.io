@@ -41,23 +41,29 @@ body {
     border-top-style: solid;
     cursor: pointer;
   }
-  
+ 
+  .modal-dialog {
+    max-width: 400px;
+    margin: 1.25rem auto;
+  }
   
   .side-nav {
     /* background-color: #bd2130; */
     border-left-color: #EC6608;
     border-left-width: 6px;
     border-left-style: solid;
-    height: 150px !important;
+    height: 30px !important;
+    overflow: hidden;
   }
   
   
   
   /* Images used */
-  .imgBMlinzImagery { background-image: url("../img/imgBMlinzImagery.png"); }
-  .imgBMWorld_Street_Map { background-image: url("../img/imgBMWorld_Street_Map.png"); }
-  .imgBMMapBoxBasemap { background-image: url("../img/imgBMMapBoxBasemap.png"); }
-  .imgBMOpenStreetMap { background-image: url("../img/imgBMOpenStreetMap.png"); }
+  .imgBMSatellite { background-image: url("../img/imgBMSatellite.png"); }
+  .imgBMLight { background-image: url("../img/imgBMLight.png"); }
+  .imgBMDark { background-image: url("../img/imgBMDark.png"); }
+  .imgBMStreet { background-image: url("../img/imgBMStreet.png"); }
+  .imgBMOutdoors { background-image: url("../img/imgBMOutdoors.png"); }
   
   
   /* Position text in the middle of the page/image */
@@ -103,8 +109,15 @@ body {
     display: block;
     padding: 0px 0px;
   }
-  
-  
+  #menuItemBasemapselector {
+    position: relative;
+    display: block;
+    padding: 0px 0px;
+  }
+  #menuItemBasemapselector{
+    text-align: center;
+    padding: 10px 0;
+   }
   #menuItemARselector{
     position: relative;
     display: block;
@@ -112,6 +125,14 @@ body {
     padding: 10px 0;
   }
   
+
+ #menuItemInfos{
+  position: relative;
+  display: block;
+  text-align: center;
+  padding: 10px 0;
+ }
+
    #menuItemBasemapsManager{
     text-align: center;
     padding: 10px 0;
@@ -128,10 +149,39 @@ body {
     margin-left: 100px;
   }
   
-  .modalLeft{
+  /* .modalLeft{
   left:53px !important;
   }
-  
+   */
+/* 
+   input[type='radio']:after {
+    width: 15px;
+    height: 15px;
+    border-radius: 15px;
+    top: -2px;
+    left: -1px;
+    position: relative;
+    background-color: #d1d3d1;
+    content: '';
+    display: inline-block;
+    visibility: visible;
+    border: 2px solid white;
+}
+
+input[type='radio']:checked:after {
+    width: 15px;
+    height: 15px;
+    border-radius: 15px;
+    top: -2px;
+    left: -1px;
+    position: relative;
+    background-color: #ffa500;
+    content: '';
+    display: inline-block;
+    visibility: visible;
+    border: 2px solid white;
+}
+  */
   #sidenavbar i{
     pointer-events: none;
   }
@@ -290,4 +340,22 @@ body {
 .nav-pills .nav-link.active, .nav-pills .show>.nav-link {
   color: #fff;
   background-color: #EC6608;
+}
+
+.modal {
+  top: initial;
+  right: initial;
+  bottom: initial;
+  left: initial;
+  width:100%;
+  /* Looks same, but now you can click. See with: */
+  top:20px;
+}
+
+.modal-dialog {
+  margin:0;
+}
+
+.modal-backdrop {
+  background-color: transparent;
 }

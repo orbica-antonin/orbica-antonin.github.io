@@ -1,285 +1,53 @@
-<!doctype html>
-<html>
-    <head>
-        <meta charset="UTF-8"/>
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>stats</title>
-        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-172928940-1"></script>
-        <script>
-            window.dataLayer = window.dataLayer || [];
-            function gtag() {
-                dataLayer.push(arguments);
-            }
-            gtag('js', new Date());
+<!doctype html><html><head><meta charset="UTF-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"><title>stats</title><script async src="https://www.googletagmanager.com/gtag/js?id=UA-172928940-1"></script><script>window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
 
-            gtag('config', 'UA-172928940-1');
-        </script>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-        <link href="./src/styles/bootstrap-custom.css" rel="stylesheet">
-        <link rel="stylesheet" href="./src/styles/bootstrap-multiselect.css"/>
-        <link href="./src/styles/styles-custom.css" rel="stylesheet">
-        <link href="./src/styles/site.css" rel="stylesheet">
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.2/css/all.css" integrity="sha384-/rXc/GQVaYpyDdyxK+ecHPVYJSN9bmVFBvjA/9eOB+pb3F2w2N6fc5qB9Ew5yIns" crossorigin="anonymous">
-        <link href="https://api.tiles.mapbox.com/mapbox-gl-js/v1.4.0/mapbox-gl.css" rel="stylesheet"/>
-        <link href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css" rel="stylesheet"/>
-        <link href="https://cdn.datatables.net/select/1.3.1/css/select.dataTables.min.css" rel="stylesheet"/>
-        <style>
-            #containermap {
-                position: absolute;
-                top: 0;
-                left: 0;
-                right: 0;
-                bottom: 0;
-                width: 100%;
+      gtag('config', 'UA-172928940-1');</script><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"><link href="./src/styles/bootstrap-custom.css" rel="stylesheet"><link rel="stylesheet" href="./src/styles/bootstrap-multiselect.css"/><link href="./src/styles/styles-custom.css" rel="stylesheet"><link href="./src/styles/site.css" rel="stylesheet"><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.2/css/all.css" integrity="sha384-/rXc/GQVaYpyDdyxK+ecHPVYJSN9bmVFBvjA/9eOB+pb3F2w2N6fc5qB9Ew5yIns" crossorigin="anonymous"><link href="https://api.tiles.mapbox.com/mapbox-gl-js/v1.4.0/mapbox-gl.css" rel="stylesheet"/><link href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css" rel="stylesheet"/><link href="https://cdn.datatables.net/select/1.3.1/css/select.dataTables.min.css" rel="stylesheet"/><style>#containermap {
+               position: absolute;
+               top: 0;
+               left: 0;
+               right: 0;
+               bottom: 0;
+               width: 100%; 
             }
-
             #containermap > * {
-                position: absolute;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
+               position: absolute;
+               top: 0;
+               left: 0;
+               width: 100%;
+               height: 100%;
             }
-
-            #map {
-                /* top: 0; bottom: 0; width: 100%; position: absolute; */
-                /* position: absolute;
+         #map {
+              /* top: 0; bottom: 0; width: 100%; position: absolute; */
+            /* position: absolute;
             top: 0px;
             bottom: 0;
             width: 100%;
             */
+         }
+         .legend {
+            background-color: #fff;
+            border-radius: 3px;
+            bottom: 30px;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+            font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+            padding: 10px;
+            position: absolute;
+            right: 10px;
+            z-index: 1;
             }
-
-            .legend {
-                background-color: #fff;
-                border-radius: 3px;
-                bottom: 30px;
-                box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-                font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
-                padding: 10px;
-                position: absolute;
-                right: 10px;
-                z-index: 1;
-            }
-
+            
             .legend h4 {
-                margin: 0 0 10px;
+            margin: 0 0 10px;
             }
-
+            
             .legend div span {
-                border-radius: 50%;
-                display: inline-block;
-                height: 10px;
-                margin-right: 5px;
-                width: 10px;
-            }
-        </style>
-        <link href="bundle.css" rel="stylesheet">
-    </head>
-    <body>
-        <div id="wrapper">
-            <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation" style="z-index: 99999;">
-                <div class="collapse show navbar-collapse navbar-ex1-collapse">
-                    <ul class="nav navbar-nav side-nav" id="sidenavbar" style="top: 40px !important;bottom: 40px !important;left: 0px !important;">
-                        <li>
-                            <a class="clickable" data-toggle="modal" data-target="#ARselector" id="menuItemARselector" title="AR2 selection">
-                                <i class="fa fa-fw fa-street-view"></i>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
-            <div class="modal left" id="ARselector" tabindex="-1" role="dialog">
-                <div class="modal-dialog modalLeft modal-responsive-will" role="document">
-                    <div class="modal-content" id="test" style="height: 100%;">
-                        <div class="modal-header">
-                            <h4 class="modal-title">
-                                <i style="padding-right: 50px;" class="fas fa fa-arrows-alt"></i>
-                                <h3>Commuter View</h3>
-                            </h4>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="$(clickedtab).css({pointerEvents:'auto'});">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-                                <li class="nav-item">
-                                    <a class="nav-link active" id="pills-Region-tab" data-toggle="pill" href="#pills-Region" role="tab" aria-controls="pills-Region" aria-selected="true">Flow Viz</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" id="pills-Viz-tab" data-toggle="pill" href="#pills-Viz" role="tab" aria-controls="pills-Viz" aria-selected="false">Aggregate Viz</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" id="pills-Data-tab" data-toggle="pill" href="#pills-Data" role="tab" aria-controls="pills-Data" aria-selected="false">Query tab</a>
-                                </li>
-                            </ul>
-                            <div class="tab-content" id="pills-tabContent">
-                                <div class="tab-pane show active" id="pills-Region" role="tabpanel" aria-labelledby="pills-Region-tab">
-                                    <div style="color:#EC6608;padding-top:5px; padding-bottom:5px">
-                                        Click on the map or select from the table an area unit to see where people commuting between areas.<br>
-                                        Click again on the region or uncheck on the table to unselect the area.<br>You can modify criteria using the query tab.
-                                    </div>
-                                    <div class="form-check" style="padding-top:10px; padding-bottom:5px">
-                                        <input class="form-check-input" type="checkbox" value="Activated" id="CheckFlowActivated" checked="checked">
-                                        <label class="form-check-label" for="CheckFlowActivated">Activate the flow dataviz</label>
-                                    </div>
-                                    <div class="card" id="cardDataViz">
-                                        <div class="card-header">
-                                            <i class="fas fa-exchange-alt" style="color:#EC6608;"></i>
-                                            Flow visualisation type
-                                        </div>
-                                        <div class="card-body" style="padding-bottom: 6px; padding-top: 6px;">
-                                            <div class="form-check form-check-inline">
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="radio" name="VizType" id="VizArrows" value="VizArrows">
-                                                    <label class="form-check-label" for="VizArrows">Arrows</label>
-                                                </div>
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="radio" name="VizType" id="VizAnimation" value="VizAnimation" checked="checked">
-                                                    <label class="form-check-label" for="VizAnimation">Animation</label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="card" id="cardRegions" style="margin-top:20px">
-                                        <div class="card-header">
-                                            <i class="fas fa-map-marker-alt" style="color:#EC6608;"></i>
-                                            Regions
-                                        </div>
-                                        <div class="card-body" style="padding-bottom: 6px; padding-top: 6px;">
-                                            <table id="tableregions" class="table table-striped table-bordered" style="width:100%">
-                                                <thead>
-                                                    <tr>
-                                                        <th></th>
-                                                        <th>Name</th>
-                                                        <th>Id</th>
-                                                        <th>groupColumn</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody></tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                    <div id="subregionsId"></div>
-                                </div>
-                                <div class="tab-pane" id="pills-Data" role="tabpanel" aria-labelledby="pills-Data-tab">
-                                    <div class="card" style="margin-top:25px">
-                                        <div class="card-header">
-                                            <i class="fas fa-building" style="color:#EC6608;"></i>
-                                            Type of journey
-                                        </div>
-                                        <div class="card-body">
-                                            <div class="form-check form-check-inline">
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="radio" name="TypeFlowRadio" id="EducationCheck" value="Educationnal" checked="checked">
-                                                    <label class="form-check-label" for="EducationCheck">Educationnal</label>
-                                                </div>
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="radio" name="TypeFlowRadio" id="WorkCheck" value="Work">
-                                                    <label class="form-check-label" for="WorkCheck">Work</label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="card" style="margin-top:50px">
-                                        <div class="card-header">
-                                            <i class="fas fa-car" style="color:#EC6608;"></i>
-                                            Transport mode
-                                        </div>
-                                        <div class="card-body">
-                                            <div id="DivTransportMode"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="tab-pane" id="pills-Viz" role="tabpanel" aria-labelledby="pills-Viz-tab">
-                                    <div class="form-check" style="padding-top:15px; padding-bottom:15px">
-                                        <input class="form-check-input" type="checkbox" value="Activated" id="CheckAggregatedActivated">
-                                        <label class="form-check-label" for="CheckAggregatedActivated">Activated the data aggretated view</label>
-                                    </div>
-                                    <div style="color:#EC6608;padding-top:5px; padding-bottom:5px">
-                                        Interactive choropleth view of people commuting per Area.<br>
-                                        All trips from an area to other areas were aggregated providing an overview of the level of commuting per region. The colour of an area reflects the total of persons commuting from this area to the other ones closeby.<br>You can modify criteria using the query tab.
-                                    </div>
-                                    <div class="card" style="margin-top:25px">
-                                        <div class="card-header">
-                                            <i class="fas fa-arrows-alt-h" style="color:#EC6608;"></i>
-                                            Direction
-                                        </div>
-                                        <div class="card-body">
-                                            <div class="form-check form-check-inline">
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="radio" name="DirectionRadio" id="OriginCheck" value="Origin" checked="checked">
-                                                    <label class="form-check-label" for="OriginCheck">Origin</label>
-                                                </div>
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="radio" name="DirectionRadio" id="DestinationCheck" value="Destination">
-                                                    <label class="form-check-label" for="DestinationCheck">Destination</label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="card" style="margin-top:25px">
-                                        <div class="card-header">
-                                            <div id="location"></div>
-                                        </div>
-                                        <div class="card-body">
-                                            <div id="chart"></div>
-                                            <div id="legendchart"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="modal left fade" id="Infos" tabindex="-1" role="dialog">
-                <div class="modal-dialog modalLeft modal-responsive-will" role="document">
-                    <div class="modal-content" id="test" style="height: 50%;">
-                        <div class="modal-header">
-                            <h4 class="modal-title">
-                                <i style="padding-right: 50px;" class="fas fa fa-arrows-alt"></i>
-                                Information
-                            </h4>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="$(clickedtab).css({pointerEvents:'auto'});">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <h3>Flow view</h3>
-                            Click on an area unit on the interactive map to see where people commuting between areas.
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="viewport-full relative">
-                <div class="loader loader--style1" title="0" id="loader">
-                    <svg version="1.1" id="loader-1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="40px" height="40px" viewBox="0 0 40 40" enable-background="new 0 0 40 40" xml:space="preserve">
-                        <path opacity="0.2" fill="#fff" d="M20.201,5.169c-8.254,0-14.946,6.692-14.946,14.946c0,8.255,6.692,14.946,14.946,14.946
+            border-radius: 50%;
+            display: inline-block;
+            height: 10px;
+            margin-right: 5px;
+            width: 10px;
+            }</style><link href="bundle.css" rel="stylesheet"></head><body><div id="wrapper"><nav class="navbar navbar-inverse navbar-fixed-top" role="navigation" style="z-index: 99999;"><div class="collapse show navbar-collapse navbar-ex1-collapse"><ul class="nav navbar-nav side-nav" id="sidenavbar" style="top: 40px !important;bottom: 40px !important;left: 0px !important;"><li><a class="clickable" data-toggle="modal" data-target="#ARselector" id="menuItemARselector" title="AR2 selection"><i class="fa fa-fw fa-street-view"></i></a></li></ul></div></nav><div class="modal left" id="ARselector" tabindex="-1" role="dialog"><div class="modal-dialog modalLeft modal-responsive-will" role="document"><div class="modal-content" id="test" style="height: 100%;"><div class="modal-header"><h4 class="modal-title"><i style="padding-right: 50px;" class="fas fa fa-arrows-alt"></i><h3>Commuter View</h3></h4><button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="$(clickedtab).css({pointerEvents:'auto'});"><span aria-hidden="true">&times;</span></button></div><div class="modal-body"><ul class="nav nav-pills mb-3" id="pills-tab" role="tablist"><li class="nav-item"><a class="nav-link active" id="pills-Region-tab" data-toggle="pill" href="#pills-Region" role="tab" aria-controls="pills-Region" aria-selected="true">Flow Viz</a></li><li class="nav-item"><a class="nav-link" id="pills-Viz-tab" data-toggle="pill" href="#pills-Viz" role="tab" aria-controls="pills-Viz" aria-selected="false">Aggregate Viz</a></li><li class="nav-item"><a class="nav-link" id="pills-Data-tab" data-toggle="pill" href="#pills-Data" role="tab" aria-controls="pills-Data" aria-selected="false">Query tab</a></li></ul><div class="tab-content" id="pills-tabContent"><div class="tab-pane show active" id="pills-Region" role="tabpanel" aria-labelledby="pills-Region-tab"><div style="color:#EC6608;padding-top:5px; padding-bottom:5px">Click on the map or select from the table an area unit to see where people commuting between areas.<br>Click again on the region or uncheck on the table to unselect the area.<br>You can modify criteria using the query tab.</div><div class="form-check" style="padding-top:10px; padding-bottom:5px"><input class="form-check-input" type="checkbox" value="Activated" id="CheckFlowActivated" checked="checked"> <label class="form-check-label" for="CheckFlowActivated">Activate the flow dataviz</label></div><div class="card" id="cardDataViz"><div class="card-header"><i class="fas fa-exchange-alt" style="color:#EC6608;"></i> Flow visualisation type</div><div class="card-body" style="padding-bottom: 6px; padding-top: 6px;"><div class="form-check form-check-inline"><div class="form-check"><input class="form-check-input" type="radio" name="VizType" id="VizArrows" value="VizArrows"> <label class="form-check-label" for="VizArrows">Arrows</label></div><div class="form-check"><input class="form-check-input" type="radio" name="VizType" id="VizAnimation" value="VizAnimation" checked="checked"> <label class="form-check-label" for="VizAnimation">Animation</label></div></div></div></div><div class="card" id="cardRegions" style="margin-top:20px"><div class="card-header"><i class="fas fa-map-marker-alt" style="color:#EC6608;"></i> Regions</div><div class="card-body" style="padding-bottom: 6px; padding-top: 6px;"><table id="tableregions" class="table table-striped table-bordered" style="width:100%"><thead><tr><th></th><th>Name</th><th>Id</th><th>groupColumn</th></tr></thead><tbody></tbody></table></div></div><div id="subregionsId"></div></div><div class="tab-pane" id="pills-Data" role="tabpanel" aria-labelledby="pills-Data-tab"><div class="card" style="margin-top:25px"><div class="card-header"><i class="fas fa-building" style="color:#EC6608;"></i> Type of journey</div><div class="card-body"><div class="form-check form-check-inline"><div class="form-check"><input class="form-check-input" type="radio" name="TypeFlowRadio" id="EducationCheck" value="Educationnal" checked="checked"> <label class="form-check-label" for="EducationCheck">Educationnal</label></div><div class="form-check"><input class="form-check-input" type="radio" name="TypeFlowRadio" id="WorkCheck" value="Work"> <label class="form-check-label" for="WorkCheck">Work</label></div></div></div></div><div class="card" style="margin-top:50px"><div class="card-header"><i class="fas fa-car" style="color:#EC6608;"></i> Transport mode</div><div class="card-body"><div id="DivTransportMode"></div></div></div></div><div class="tab-pane" id="pills-Viz" role="tabpanel" aria-labelledby="pills-Viz-tab"><div class="form-check" style="padding-top:15px; padding-bottom:15px"><input class="form-check-input" type="checkbox" value="Activated" id="CheckAggregatedActivated"> <label class="form-check-label" for="CheckAggregatedActivated">Activated the data aggretated view</label></div><div style="color:#EC6608;padding-top:5px; padding-bottom:5px">Interactive choropleth view of people commuting per Area.<br>All trips from an area to other areas were aggregated providing an overview of the level of commuting per region. The colour of an area reflects the total of persons commuting from this area to the other ones closeby.<br>You can modify criteria using the query tab.</div><div class="card" style="margin-top:25px"><div class="card-header"><i class="fas fa-arrows-alt-h" style="color:#EC6608;"></i> Direction</div><div class="card-body"><div class="form-check form-check-inline"><div class="form-check"><input class="form-check-input" type="radio" name="DirectionRadio" id="OriginCheck" value="Origin" checked="checked"> <label class="form-check-label" for="OriginCheck">Origin</label></div><div class="form-check"><input class="form-check-input" type="radio" name="DirectionRadio" id="DestinationCheck" value="Destination"> <label class="form-check-label" for="DestinationCheck">Destination</label></div></div></div></div><div class="card" style="margin-top:25px"><div class="card-header"><div id="location"></div></div><div class="card-body"><div id="chart"></div><div id="legendchart"></div></div></div></div></div></div></div></div></div><div class="modal left fade" id="Infos" tabindex="-1" role="dialog"><div class="modal-dialog modalLeft modal-responsive-will" role="document"><div class="modal-content" id="test" style="height: 50%;"><div class="modal-header"><h4 class="modal-title"><i style="padding-right: 50px;" class="fas fa fa-arrows-alt"></i>Information</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="$(clickedtab).css({pointerEvents:'auto'});"><span aria-hidden="true">&times;</span></button></div><div class="modal-body"><h3>Flow view</h3>Click on an area unit on the interactive map to see where people commuting between areas.</div></div></div></div><div class="viewport-full relative"><div class="loader loader--style1" title="0" id="loader"><svg version="1.1" id="loader-1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="40px" height="40px" viewBox="0 0 40 40" enable-background="new 0 0 40 40" xml:space="preserve"><path opacity="0.2" fill="#fff" d="M20.201,5.169c-8.254,0-14.946,6.692-14.946,14.946c0,8.255,6.692,14.946,14.946,14.946
                      s14.946-6.691,14.946-14.946C35.146,11.861,28.455,5.169,20.201,5.169z M20.201,31.749c-6.425,0-11.634-5.208-11.634-11.634
-                     c0-6.425,5.209-11.634,11.634-11.634c6.425,0,11.633,5.209,11.633,11.634C31.834,26.541,26.626,31.749,20.201,31.749z"/>
-                        <path fill="#fff" d="M26.013,10.047l1.654-2.866c-2.198-1.272-4.743-2.012-7.466-2.012h0v3.312h0
-                     C22.32,8.481,24.301,9.057,26.013,10.047z">
-                            <animateTransform attributeType="xml" attributeName="transform" type="rotate" from="0 20 20" to="360 20 20" dur="0.5s" repeatCount="indefinite"/>
-                        </path>
-                    </svg>
-                </div>
-            </div>
-            <div id="containermap">
-                <div id="map"></div>
-            </div>
-            <div id="trip-legend" class="legend" style="display: none">
-                <h4>trip count</h4>
-            </div>
-        </div>
-        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-        <script src="./src/plugins/bootstrap-multiselect.js"></script>
-        <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
-        <script src="https://cdn.datatables.net/select/1.3.1/js/dataTables.select.min.js"></script>
-        <script src="https://cdn.datatables.net/rowgroup/1.1.2/js/dataTables.rowGroup.min.js"></script>
-        <script src="js/1.e6ef9763.chunk.js"></script>
-        <script src="js/app.382c80d2.js"></script>
-    </body>
-</html>
+                     c0-6.425,5.209-11.634,11.634-11.634c6.425,0,11.633,5.209,11.633,11.634C31.834,26.541,26.626,31.749,20.201,31.749z"/><path fill="#fff" d="M26.013,10.047l1.654-2.866c-2.198-1.272-4.743-2.012-7.466-2.012h0v3.312h0
+                     C22.32,8.481,24.301,9.057,26.013,10.047z"><animateTransform attributeType="xml" attributeName="transform" type="rotate" from="0 20 20" to="360 20 20" dur="0.5s" repeatCount="indefinite"/></path></svg></div></div><div id="containermap"><div id="map"></div></div><div id="trip-legend" class="legend" style="display: none"><h4>trip count</h4></div></div><script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script><script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script><script src="./src/plugins/bootstrap-multiselect.js"></script><script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script><script src="https://cdn.datatables.net/select/1.3.1/js/dataTables.select.min.js"></script><script src="https://cdn.datatables.net/rowgroup/1.1.2/js/dataTables.rowGroup.min.js"></script><script src="js/1.e6ef9763.chunk.js"></script><script src="js/app.382c80d2.js"></script></body></html>
